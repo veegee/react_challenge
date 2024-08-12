@@ -9,14 +9,35 @@ TailwindCSS is used for styling.
 There are three main pages: main, detail, and comment which are routed
 to `/`, `/detail`, and `/comment` respectively. 
 
+Reusable components and common logic is contained in the `components`
+subdirectory. 
+
+- The `Card` component is the main list item in the main page.
+- The `Pagination` component is used to render the page navigation 
+  buttons at the bottom of the page.
+- The `api.tsx` module contains functions to facilitate calling 
+  application server endpoints 
+
 
 **Main Page**
 
 `app/page.tsx` contains the logic for the main page.
 
+The three main components of this page
+
 On initial page load, the application determines whether a search query
 is requested and proceeds to execute the appropriate network request.
-If a search query is requested
+Since the main items endpoint returns all required data for the details
+view, each item in the list is packed with a base64-encoded JSON string
+containing all of its data. This data is forwarded to the details view
+if the item is clicked.
+
+Search functionality is also implemented on this page. The search 
+functionality is implemented with a simple text box that automatically
+reacts to typed text without requiring the user to press a submit
+button. To do this efficiently, a "debounce" function is used to limit
+the maximum frequency of network requests to 300ms. The pagination
+and data packing mechanism for the details page is reused.
 
 
 **Details Page**
@@ -25,8 +46,8 @@ If a search query is requested
 
 This page receives all data as a base64-encoded JSON string in the URL
 parameters and does not issue any network requests for efficiency. This
-is possible because the API returns all the required data in the all
-items and search endpoints.
+is possible because the API returns all the required data for all
+items.
 
 
 **Comments Page**

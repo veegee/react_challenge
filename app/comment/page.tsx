@@ -1,11 +1,5 @@
 'use client';
 
-import {useSearchParams, useRouter} from 'next/navigation'
-import React, {useEffect, useState} from "react";
-import {Card, CardProps} from '@/components/card';
-import {fetchArtworks, search, formatImageSrc, ApiPaginationState, Base64Encode} from "@/components/api";
-import {PaginationBar} from "@/components/pagination";
-
 export default function Home() {
   function onChange(e: React.FormEvent<HTMLInputElement>): void {
     e.preventDefault();
