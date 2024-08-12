@@ -3,6 +3,15 @@
 This project is created using **TypeScript** and the **nextjs** framework. 
 TailwindCSS is used for styling.
 
+The frontend is responsive and renders properly on any screen size.
+
+There is no particular code herein that is inefficient. Network requests
+are done only when a page is loaded, a search is executed, or a page
+navigation event occurs.
+
+In addition to this document, code contains inline comments and docstrings
+where appropriate.
+
 
 ## Project Structure
 
@@ -39,6 +48,9 @@ button. To do this efficiently, a "debounce" function is used to limit
 the maximum frequency of network requests to 300ms. The pagination
 and data packing mechanism for the details page is reused.
 
+History is preserved automatically by the React router, so no additional
+manipulation is required for the back/forward buttons to work as expected.
+
 
 **Details Page**
 
@@ -56,5 +68,20 @@ items.
 This does not contain any particular additional logic for validation, other
 than the validation done by the browser itself for the email field. This
 was done intentionally since validation must **always** be done by the
-application server. The name field should normally allow almost any 
-kind of input due to the nature of non-English names.
+application server. 
+
+- The name field should normally allow almost any kind of input due to 
+  the nature of non-English names. Even exclamation marks are allowed.
+- The email field is validated by the browser automatically.
+- The comment box does not perform any additional validation.
+
+
+## Notes:
+
+The filter by category feature was intentionally omitted since the API does
+not provide functionality to filter a result set by category. Pagination is
+always done on the backend, usually with a database cursor. Without support
+from the application server, the only way to implement this functionality
+would be to fetch all results, then filter and paginate locally, which is 
+impractical for the scope of this challenge. Furthermore, that would not be
+correct design in any production application.
